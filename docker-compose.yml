@@ -1,6 +1,6 @@
 services:
     nginx:
-        container_name: ${CONTAINER_NAME}
+        container_name: ${CONTAINER_NAME}-nginx
         image: nginx:1.27.0-alpine
         restart: unless-stopped
         env_file: .env
@@ -8,3 +8,59 @@ services:
             - ${CONTAINER_PORT}:80
         volumes:
             - ./nginx:/etc/nginx/conf.d:rw
+        networks:
+            - ${CONTAINER_NAME}
+
+    database:
+        container_name: ${CONTAINER_NAME}-database
+        image: mysql:9.0
+        restart: unless-stopped
+        env_file: .env
+        environment:
+            MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${DATABASE_NAME}
+            MYSQL_USER: ${DATABASE_USER}
+            MYSQL_PASSWORD: ${DATABASE_PASSWORD}
+        healthcheck:
+            test:
+                [
+                    "CMD",
+                    "mysqladmin",
+                    "ping",
+                    "-h",
+                    "127.0.0.1",
+                    "-u",
+                    "root",
+                    "-p${DATABASE_PASSWORD}",
+                ]
+            timeout: 20s
+            retries: 10
+        ports:
+            - ${DATABASE_PORT}:3306
+        volumes:
+            - db-data:/var/lib/mysql
+        networks:
+            - ${CONTAINER_NAME}
+
+    phpmyadmin:
+        container_name: ${CONTAINER_NAME}-phpmyadmin
+        image: phpmyadmin/phpmyadmin
+        restart: unless-stopped
+        env_file: .env
+        environment:
+            PMA_HOST: database
+            PMA_PORT: ${DATABASE_PORT}
+            MYSQL_ROOT_PASSWORD: "${DATABASE_ROOT_PASSWORD}"
+        ports:
+            - ${PHPMYADMIN_PORT}:80
+        depends_on:
+            - database
+        networks:
+            - ${CONTAINER_NAME}
+
+volumes:
+    db-data:
+
+networks:
+    ${CONTAINER_NAME}:
+        driver: bridge

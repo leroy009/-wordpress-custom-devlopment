@@ -49,7 +49,7 @@ services:
         restart: unless-stopped
         env_file: .env
         environment:
-            PMA_HOST: database
+            PMA_HOST: database # use the same name as database service
             PMA_PORT: ${DATABASE_PORT}
             MYSQL_ROOT_PASSWORD: "${DATABASE_ROOT_PASSWORD}"
         ports:
@@ -67,10 +67,10 @@ services:
         restart: unless-stopped
         env_file: .env
         environment:
-            WORDPRESS_DB_HOST: database:3306
+            WORDPRESS_DB_HOST: database:3306 # use the same name as database service
+            WORDPRESS_DB_NAME: "${DATABASE_NAME}"
             WORDPRESS_DB_USER: "${DATABASE_USER}"
             WORDPRESS_DB_PASSWORD: "${DATABASE_PASSWORD}"
-            WORDPRESS_DB_NAME: "${DATABASE_NAME}"
         volumes:
             - wordpress:/var/www/html
         networks:

@@ -55,3 +55,7 @@ src/plugins/akismet
 src/index.php
 src/plugins/index.php
 src/themes/index.php
+
+src/plugins/fakerpress
+src/plugins/wp-dummy-content-generator
+src/uploads/

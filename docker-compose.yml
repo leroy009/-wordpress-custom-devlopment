@@ -8,8 +8,9 @@ services:
             - ${CONTAINER_PORT}:80
         volumes:
             - ./nginx:/etc/nginx/conf.d:rw
+            - wordpress:/var/www/html
         networks:
-            - internal-network
+            - internal
 
     database:
         container_name: ${CONTAINER_NAME}-database
@@ -40,7 +41,7 @@ services:
         volumes:
             - db-data:/var/lib/mysql
         networks:
-            - internal-network
+            - internal
 
     phpmyadmin:
         container_name: ${CONTAINER_NAME}-phpmyadmin
@@ -56,11 +57,29 @@ services:
         depends_on:
             - database
         networks:
-            - internal-network
+            - internal
+
+    wordpress:
+        depends_on:
+            - database
+        container_name: ${CONTAINER_NAME}-wordpress
+        image: wordpress:6.5.5-fpm-alpine
+        restart: unless-stopped
+        env_file: .env
+        environment:
+            WORDPRESS_DB_HOST: database:3306
+            WORDPRESS_DB_USER: "${DATABASE_USER}"
+            WORDPRESS_DB_PASSWORD: "${DATABASE_PASSWORD}"
+            WORDPRESS_DB_NAME: "${DATABASE_NAME}"
+        volumes:
+            - wordpress:/var/www/html
+        networks:
+            - internal
 
 volumes:
     db-data:
+    wordpress:
 
 networks:
-    internal-network:
+    internal:
         driver: bridge

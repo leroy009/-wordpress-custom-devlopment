@@ -71,6 +71,8 @@ services:
             WORDPRESS_DB_NAME: "${DATABASE_NAME}"
             WORDPRESS_DB_USER: "${DATABASE_USER}"
             WORDPRESS_DB_PASSWORD: "${DATABASE_PASSWORD}"
+            PUID: 1000 # Set this to the host UID
+            PGID: 33 # Set this to the host GID
         volumes:
             - wordpress:/var/www/html
             - ./src:/var/www/html/wp-content:rw

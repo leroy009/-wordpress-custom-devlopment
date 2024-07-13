@@ -49,6 +49,7 @@ wp-config.php
 
 .env
 
-src/wp-content/themes/twenty*/
-src/wp-content/plugins/hello.php
-src/wp-content/plugins/akismet
+src/themes/twenty*/
+src/plugins/hello.php
+src/plugins/akismet
+src/index.php

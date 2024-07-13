@@ -53,3 +53,5 @@ src/themes/twenty*/
 src/plugins/hello.php
 src/plugins/akismet
 src/index.php
+src/plugins/index.php
+src/themes/index.php

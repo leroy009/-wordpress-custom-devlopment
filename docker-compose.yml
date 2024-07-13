@@ -9,7 +9,7 @@ services:
         volumes:
             - ./nginx:/etc/nginx/conf.d:rw
         networks:
-            - ${CONTAINER_NAME}
+            - internal-network
 
     database:
         container_name: ${CONTAINER_NAME}-database
@@ -40,7 +40,7 @@ services:
         volumes:
             - db-data:/var/lib/mysql
         networks:
-            - ${CONTAINER_NAME}
+            - internal-network
 
     phpmyadmin:
         container_name: ${CONTAINER_NAME}-phpmyadmin
@@ -52,15 +52,15 @@ services:
             PMA_PORT: ${DATABASE_PORT}
             MYSQL_ROOT_PASSWORD: "${DATABASE_ROOT_PASSWORD}"
         ports:
-            - ${PHPMYADMIN_PORT}:80
+            - ${PHP_MY_ADMIN_PORT}:80
         depends_on:
             - database
         networks:
-            - ${CONTAINER_NAME}
+            - internal-network
 
 volumes:
     db-data:
 
 networks:
-    ${CONTAINER_NAME}:
+    internal-network:
         driver: bridge

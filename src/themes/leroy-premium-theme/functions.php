@@ -9,4 +9,10 @@
 
     add_action('wp_enqueue_scripts', 'leroy_files');
 
+    function leroy_features() {
+        add_theme_support('title-tag');
+    }
+
+    add_action('after_setup_theme', 'leroy_features')
+
 ?>

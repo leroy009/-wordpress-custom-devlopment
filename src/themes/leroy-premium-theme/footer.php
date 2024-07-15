@@ -36,6 +36,7 @@
                                             'theme_location' => 'footerMenuLocationTwo'
                                         ));
                                     ?>
+                                <li <?php if (is_page('legal') or wp_get_post_parent_id(0) == 16) echo 'class="current-menu-item"' ?>><a href="<?php echo site_url('/legal') ?>">Legal</a></li>
                                 </nav>
                             </div>
                         </div>

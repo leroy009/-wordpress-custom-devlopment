@@ -1,4 +1,6 @@
 <?php
+    get_header();
+
     function showPosts() {
         while(have_posts()) {
            the_post(); ?>
@@ -10,5 +12,7 @@
     }
 
     showPosts();
+
+    get_footer();
 ?>
 

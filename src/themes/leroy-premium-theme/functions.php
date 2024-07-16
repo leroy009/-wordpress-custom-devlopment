@@ -18,4 +18,19 @@
 
     add_action('after_setup_theme', 'leroy_features')
 
+
+    // I am removing them here to the must use plugins so they are not disabled.
+    // Register custom post types
+    // function leroy_post_types() {
+    //     register_post_type('event', array(
+    //         'public' => true,
+    //         'labels' => array(
+    //             'name' => 'Events'
+    //         ),
+    //         'menu_icon' => 'dashicons-calendar-alt'
+    //     ));
+    // }
+    // add_action('init', 'leroy_post_types');
+    // Register custom post types
+
 ?>

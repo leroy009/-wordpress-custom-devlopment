@@ -3,6 +3,7 @@
     function leroy_post_types() {
         register_post_type('event', array(
             'public' => true,
+            'show_in_rest' => true, // Using The Modern Block Editor For Our Custom Post Type
             'labels' => array(
                 'name' => 'Events',
                 'add_new_item' => 'Add New Event',

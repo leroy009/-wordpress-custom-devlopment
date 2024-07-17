@@ -28,23 +28,43 @@
 
             <?php 
                 $homepage_events = new WP_Query(array(
-                    'posts_per_page' => 2,
+                    'posts_per_page' => 3,
                     'post_type' => 'event',
                     // 'orderby' => 'post_date',
                     // custom meta fileds sorting
                     'meta_key' => 'event_date',
+                    // 'orderby' => 'meta_value_num', // When I have this. Order ASC or DESC no longer works
                     'orderby' => 'meta_value',
                     'meta_query' => array(
                         array(
                             'key' => 'event_date',
                             'compare' => '>=',
                             'value' => $today,
-                            'type' => 'numeric'
+                            'type' => 'DATETIME'
                         )
                     ),
                     // custom meta fileds sorting
                     'order' => 'DESC'
                 ));
+            
+            // This works too
+            // $today = date('Y-m-d\TH:i');
+
+            // $homepage_events = new WP_Query(array(
+            //     'posts_per_page' => 3,
+            //     'post_type' => 'event',
+            //     'meta_key' => 'event_date',
+            //     'orderby' => 'meta_value',
+            //     'order' => 'ASC',
+            //     'meta_query' => array(
+            //         array(
+            //             'key' => 'event_date',
+            //             'compare' => '>=',
+            //             'value' => $today,
+            //             'type' => 'DATETIME'
+            //         )
+            //     )
+            // ));
 
                 while($homepage_events->have_posts()) {
                     $homepage_events->the_post(); 

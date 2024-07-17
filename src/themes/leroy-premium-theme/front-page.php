@@ -29,11 +29,26 @@
             <?php 
                 $homepage_events = new WP_Query(array(
                     'posts_per_page' => 2,
-                    'post_type' => 'event'
+                    'post_type' => 'event',
+                    // 'orderby' => 'post_date',
+                    // custom meta fileds sorting
+                    'meta_key' => 'event_date',
+                    'orderby' => 'meta_value',
+                    'meta_query' => array(
+                        array(
+                            'key' => 'event_date',
+                            'compare' => '>=',
+                            'value' => $today,
+                            'type' => 'numeric'
+                        )
+                    ),
+                    // custom meta fileds sorting
+                    'order' => 'DESC'
                 ));
 
                 while($homepage_events->have_posts()) {
                     $homepage_events->the_post(); 
+                    // $post_id = get_the_ID();
 
                     // ACF 
                     /*
@@ -44,12 +59,15 @@
 
                     // Jet Engine.
                     $event_date = get_post_meta( get_the_ID(), 'event_date', true );
+                    // echo 'Event date: ';
+                    // var_dump($event_date); // Debug output
 
                     // Check if the event date is valid
                     if ( !empty( $event_date ) ) {
                         try {
-                            $date = new DateTime('@' .$event_date);
-                            $date->setTimezone(new DateTimeZone('UTC'));
+                            // $date = new DateTime('@' .$event_date); // Time Stamp
+                            $date = new DateTime($event_date);
+                            $date->setTimezone(new DateTimeZone('Africa/Johannesburg'));
                             $event_date_month = $date->format('M'); 
                             $event_date_day = $date->format('d'); 
                         } catch (Exception $e) {

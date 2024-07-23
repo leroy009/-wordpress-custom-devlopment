@@ -9,10 +9,19 @@
             'show_in_rest' => true,
             'labels' => array(
                 'name' => 'Events',
+                'singular_name' => 'Event',
+                'menu_name' => 'Events',
+                'name_admin_bar' => 'Event',
+                'add_new' => 'Add New Event',
                 'add_new_item' => 'Add New Event',
+                'new_item' => 'New Event',
                 'edit_item' => 'Edit Event',
+                'view_item' => 'View Event',
                 'all_items' => 'All Events',
-                'singular_name' => 'Event'
+                'search_items' => 'Search Events',
+                'parent_item_colon' => 'Parent Events:',
+                'not_found' => 'No events found.',
+                'not_found_in_trash' => 'No events found in Trash.',
             ),
             'menu_icon' => 'dashicons-calendar-alt'
         ));
